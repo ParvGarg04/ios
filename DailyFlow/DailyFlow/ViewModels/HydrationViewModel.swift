@@ -1,6 +1,7 @@
 import Foundation
 import UIKit
 import SwiftUI    // ← add this line
+import Firebase
 
 @MainActor
 final class HydrationViewModel: ObservableObject {
