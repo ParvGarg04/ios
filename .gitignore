@@ -1,0 +1,31 @@
+# Xcode
+DailyFlow/DailyFlow.xcodeproj/
+DailyFlow/*.xcworkspace/
+DerivedData/
+*.xcuserstate
+*.xccheckout
+
+# Firebase
+GoogleService-Info.plist
+**/GoogleService-Info.plist
+!**/GoogleService-Info.plist.example
+serviceAccountKey.json
+**/serviceAccountKey*.json
+
+# Node
+node_modules/
+admin-dashboard/dist/
+admin-dashboard/.env
+scripts/node_modules/
+
+# Firebase
+.firebase/
+firebase-debug.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
