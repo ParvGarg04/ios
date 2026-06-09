@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import SwiftUI    // ← add this line
 
 @MainActor
 final class HydrationViewModel: ObservableObject {
