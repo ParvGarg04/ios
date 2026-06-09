@@ -1,6 +1,7 @@
 import Foundation
 import UIKit
-
+import SwiftUI    // ← add this line
+import Firebase
 @MainActor
 final class TasksViewModel: ObservableObject {
     @Published var pendingTasks:   [TaskItem] = []
