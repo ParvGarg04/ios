@@ -52,7 +52,7 @@ workflows:
     publishing:
       email:
         recipients:
-          - your@email.com
+          - parvgarg.sn@gmail.com
         notify:
           success: true
           failure: true
