@@ -1,0 +1,58 @@
+workflows:
+  ios-workflow:
+    name: DailyFlow iOS Build
+    max_build_duration: 60
+    environment:
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.dailyflow.app
+      vars:
+        XCODE_PROJECT: "DailyFlow.xcodeproj"
+        XCODE_SCHEME: "DailyFlow"
+        BUNDLE_ID: "com.dailyflow.app"
+      xcode: latest
+      cocoapods: default
+    scripts:
+      - name: Install XcodeGen
+        script: brew install xcodegen
+
+      - name: Generate Xcode project
+        script: |
+          cd $CM_BUILD_DIR/DailyFlow
+          xcodegen generate
+
+      - name: Add GoogleService-Info.plist
+        script: |
+          echo "$GOOGLE_SERVICE_INFO_PLIST" > $CM_BUILD_DIR/DailyFlow/DailyFlow/GoogleService-Info.plist
+
+      - name: Install CocoaPods (if needed)
+        script: |
+          cd $CM_BUILD_DIR/DailyFlow
+          if [ -f "Podfile" ]; then
+            pod install
+          else
+            echo "No Podfile found, skipping CocoaPods"
+          fi
+
+      - name: Set up code signing
+        script: |
+          xcode-project use-profiles
+
+      - name: Build iOS app
+        script: |
+          cd $CM_BUILD_DIR/DailyFlow
+          xcode-project build-ipa \
+            --project "$XCODE_PROJECT" \
+            --scheme "$XCODE_SCHEME"
+
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+
+    publishing:
+      email:
+        recipients:
+          - your@email.com
+        notify:
+          success: true
+          failure: true
